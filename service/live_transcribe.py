@@ -16,6 +16,9 @@ CHANNELS = 1
 RATE = 44100
 CHUNK = 2 ** 11
 
+# 認証用のJSONファイル
+CREDENTIAL_JSON = 'secret.json'
+
 # 録音に関する基本情報
 RECORD_SECONDS = 5
 iDeviceindex = 0
@@ -89,7 +92,7 @@ class LiveTranscribe:
 
 
 def main():
-    client = speech.SpeechClient()
+    client = speech.SpeechClient.from_service_account_json(CREDENTIAL_JSON)
     config = types.RecognitionConfig(
         encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=RATE,

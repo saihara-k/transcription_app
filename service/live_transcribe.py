@@ -10,19 +10,7 @@ from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
 
-# 基本情報の設定
-FORMAT = pyaudio.paInt16
-CHANNELS = 1
-RATE = 44100
-CHUNK = 2 ** 11
-
-# 認証用のJSONファイル
-CREDENTIAL_JSON = 'secret.json'
-
-# 録音に関する基本情報
-RECORD_SECONDS = 5
-iDeviceindex = 0
-
+from service.constant import *
 
 class LiveTranscribe:
 
@@ -99,11 +87,11 @@ def main():
         language_code='ja-JP')
 
     live_transcribe = LiveTranscribe()
-    print('Start Rec!')
+    print('Start Rec! ~Enter Ctrl + C to exit~')
 
     with live_transcribe as stream:
         flag_continue = True
-        while flag_continue:
+        while flag_continue or IndefinitelyRec:
             try:
                 audio = stream.set_audio()
                 print('Now Recognizing...')
